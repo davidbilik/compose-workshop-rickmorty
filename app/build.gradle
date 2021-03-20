@@ -1,0 +1,100 @@
+import cz.ackee.composeworkshop.Libs
+import cz.ackee.composeworkshop.TestingLibs
+import cz.ackee.composeworkshop.Versions
+
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'kotlin-parcelize'
+}
+
+android {
+    compileSdkVersion AppConfig.compileSdk
+
+    defaultConfig {
+        applicationId AppConfig.applicationId
+        minSdkVersion AppConfig.minSdk
+        targetSdkVersion AppConfig.targetSdk
+        versionCode AppConfig.buildNumber
+        versionName AppConfig.version
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility Versions.java
+        targetCompatibility Versions.java
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+        useIR = true
+    }
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion Versions.compose
+        kotlinCompilerVersion '1.4.31'
+    }
+}
+
+dependencies {
+
+    implementation Libs.Kotlin.kotlin
+    implementation Libs.Kotlin.coroutinesCore
+    implementation Libs.Kotlin.coroutinesAndroid
+
+    implementation Libs.Compose.ui
+    implementation Libs.Compose.uiTooling
+    implementation Libs.Compose.activity
+    implementation Libs.Compose.animation
+    implementation Libs.Compose.foundation
+    implementation Libs.Compose.foundationLayout
+    implementation Libs.Compose.material
+    implementation Libs.Compose.materialIcons
+    implementation Libs.Compose.navigation
+    implementation Libs.Compose.runtime
+    implementation Libs.Compose.runtimeLivedata
+
+    implementation Libs.AndroidCore.material
+    implementation Libs.AndroidCore.activityKtx
+    implementation Libs.AndroidCore.appCompat
+    implementation Libs.AndroidCore.coreKtx
+
+    implementation Libs.Paging.common
+    implementation Libs.Paging.compose
+    implementation Libs.Paging.runtime
+
+    implementation Libs.Lifecycle.compose
+    implementation Libs.Lifecycle.common
+    implementation Libs.Lifecycle.liveDataKtx
+    implementation Libs.Lifecycle.viewModelKtx
+
+    implementation Libs.Room.ktx
+    kapt Libs.Room.compiler
+
+    implementation Libs.Koin.core
+    implementation Libs.Koin.scope
+    implementation Libs.Koin.viewModel
+
+    implementation Libs.Network.retrofit
+    implementation Libs.Network.retrofitMoshiConverter
+    implementation Libs.Network.moshi
+    implementation Libs.Network.moshiKotlin
+
+    implementation Libs.Accompanist.coil
+
+    implementation Libs.Other.timber
+
+    testImplementation TestingLibs.composeUiTest
+    testImplementation TestingLibs.espresso
+    testImplementation TestingLibs.junit
+    testImplementation TestingLibs.mockK
+}
